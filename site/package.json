@@ -1,0 +1,26 @@
+{
+  "name": "app",
+  "version": "0.0.1",
+  "description": "app",
+  "author": "Artem Prudnikov",
+  "contributors": [
+    {
+      "name": "Artem Prudnikov",
+      "email": "logovaser@gmail.com"
+    }
+  ],
+  "devDependencies": {
+    "vue": "latest",
+    "vue-router": "latest",
+
+    "babylonjs": "latest",
+
+    "css-loader": "latest",
+    "less": "latest",
+    "less-loader": "latest",
+    "style-loader": "latest",
+    "file-loader": "latest",
+    "raw-loader": "latest",
+    "webpack": "latest"
+  }
+}
