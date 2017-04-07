@@ -59,6 +59,14 @@ export default {
         // scene.render();
 
     },
+    methods: {
+        onClick: function () {
+            let scene = this.scene;
+            let pickResult = scene.pick(scene.pointerX, scene.pointerY);
+
+            console.dir(pickResult);
+        }
+    },
 
     template: Template,
 }

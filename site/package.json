@@ -12,9 +12,9 @@
   "devDependencies": {
     "vue": "latest",
     "vue-router": "latest",
-
     "babylonjs": "latest",
-
+    "three": "latest",
+    "three-obj-loader": "latest",
     "css-loader": "latest",
     "less": "latest",
     "less-loader": "latest",
@@ -22,5 +22,8 @@
     "file-loader": "latest",
     "raw-loader": "latest",
     "webpack": "latest"
+  },
+  "dependencies": {
+    "three-objmtll-loader": "^1.0.1"
   }
 }

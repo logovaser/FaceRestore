@@ -23,7 +23,8 @@ module.exports = {
             }
         }),
         new webpack.ProvidePlugin({
-            BABYLON: 'babylonjs/babylon'
+            // BABYLON: 'babylonjs/babylon'
+            THREE: 'three/build/three'
         }),
         // new webpack.optimize.UglifyJsPlugin({
         //     compress: {warnings: false},
