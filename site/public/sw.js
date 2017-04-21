@@ -10,6 +10,7 @@ this.addEventListener('install', function (event) {
             return cache.addAll([
                 '/',
                 '/static/index.js',
+                '/static/skull.obj',
             ]).catch(function (error) {
                 console.error('Error in install handler:', error);
             });
@@ -31,10 +32,10 @@ this.addEventListener('activate', function (event) {
     );
 });
 
-this.addEventListener('fetch', function (event) {
-    event.respondWith(
-        caches.match(event.request).then(function (response) {
-            return response || fetch(event.request);
-        })
-    );
-});
+// this.addEventListener('fetch', function (event) {
+//     event.respondWith(
+//         caches.match(event.request).then(function (response) {
+//             return response || fetch(event.request);
+//         })
+//     );
+// });
