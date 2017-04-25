@@ -33,14 +33,15 @@ export function initScene() {
     });
 }
 
-export function resizeRenderer(renderer, canvas) {
-    renderer.setSize(canvas.scrollWidth, canvas.scrollHeight);
+export function resizeRenderer(renderer, canvas, camera) {
+    camera.aspect = canvas.clientWidth / canvas.clientWidth;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(canvas.clientWidth, canvas.clientWidth);
 }
 
 export function initRenderer(canvas, scene, camera) {
     let renderer = new THREE.WebGLRenderer({canvas});
-
-    resizeRenderer(renderer, canvas);
 
     let render = () => {
         requestAnimationFrame(render);

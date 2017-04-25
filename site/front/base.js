@@ -9,14 +9,18 @@ const app = new Vue({
     }
 }).$mount('#app');
 
+import initSW from './sw/initServiceWorker'
+import askPush from './sw/requestPushNotifPermission'
 
+initSW.then(registration => {
 
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js').then(function(registration) {
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-        }).catch(function(err) {
-            console.log('ServiceWorker registration failed: ', err);
-        });
+    askPush.then(() => {
+        setTimeout(() => {
+            registration.showNotification('test 2', {
+                "body": "Hi there 2",
+                "vibrate": [10, 100, 20, 100, 30, 100, 40]
+            });
+        }, 10000);
     });
-}
+
+});

@@ -43,7 +43,11 @@ export default {
             this.skullGroup = res.skullGroup;
             this.points = [];
 
-            this.renderer = initRenderer(this.$refs.renderCanvas, res.scene, res.camera);
+            this.renderer = initRenderer(this.$refs.renderCanvas, this.scene, this.camera);
+            resizeRenderer(this.renderer, this.$refs.renderWrapper, this.camera);
+            window.addEventListener('resize', () => {
+                resizeRenderer(this.renderer, this.$refs.renderWrapper, this.camera);
+            })
         });
     },
 
@@ -92,9 +96,6 @@ export default {
 
                 }
             }
-        },
-        onResize: function () {
-            resizeRenderer(renderer, this.$refs.renderCanvas)
         },
         rotateMesh: function (dir) {
             const delta = 0.2;
