@@ -5,11 +5,17 @@
 import 'three/build/three'
 import '../../lib/OBJLoader'
 
+import Triangulate from 'delaunay-triangulate';
+
 import '../../../res/skull.obj'
 import './base.less'
 import Template from './base.html'
 
 import {initScene, initRenderer, resizeRenderer} from './threeJsInit'
+
+function lengthenVector(vector, length) {
+    return vector.multiplyScalar(length / vector.length() + 1);
+}
 
 export default {
 
@@ -42,14 +48,9 @@ export default {
     },
 
     methods: {
-        onClick: function (event) {
-            let canvas = this.$refs.renderCanvas;
-
-            this.mouse.x = ( event.offsetX / canvas.scrollWidth ) * 2 - 1;
-            this.mouse.y = -( event.offsetY / canvas.scrollHeight ) * 2 + 1;
-
+        rayCastOnPoint: function (point) {
             let rayCaster = new THREE.Raycaster();
-            rayCaster.setFromCamera(this.mouse, this.camera);
+            rayCaster.setFromCamera(point, this.camera);
             let intersects = rayCaster.intersectObjects(this.scene.children, true);
 
             let intersect = intersects[0];
@@ -68,6 +69,28 @@ export default {
                     vector: p,
                     mesh: sphere
                 });
+
+                return p;
+            }
+            else return false;
+        },
+        onClick: function (event) {
+            let canvas = this.$refs.renderCanvas;
+
+            this.mouse.x = ( event.offsetX / canvas.scrollWidth ) * 2 - 1;
+            this.mouse.y = -( event.offsetY / canvas.scrollHeight ) * 2 + 1;
+
+            this.rayCastOnPoint(this.mouse);
+        },
+        rayCastMatrix: function () {
+            let pointMatrix = [];
+
+            for (let x = -0.8; x <= 0.8; x += 0.1) {
+                pointMatrix[x] = [];
+                for (let y = -0.8; y <= 0.8; y += 0.1) {
+                    pointMatrix[x][y] = this.rayCastOnPoint({x, y});
+
+                }
             }
         },
         onResize: function () {
@@ -87,19 +110,21 @@ export default {
         },
         createMeshOnPoints: function () {
 
-            let vertices = this.points.map(point => point.vector.multiplyScalar(1.1));
+            let vertices = this.points.map(point => lengthenVector(point.vector, 0.2));
             let holes = [];
             let triangles;
             let geometry = new THREE.Geometry();
-            let material = new THREE.MeshBasicMaterial({color: 0xffccff});
+            let material = new THREE.MeshLambertMaterial({color: 0xffccff, side: THREE.DoubleSide});
 
             geometry.vertices = vertices;
 
-            triangles = THREE.ShapeUtils.triangulateShape(vertices, holes);
+            triangles = Triangulate(vertices.map(v => [v.x, v.y, v.z]));
 
             for (let i = 0; i < triangles.length; i++) {
                 geometry.faces.push(new THREE.Face3(triangles[i][0], triangles[i][1], triangles[i][2]));
+                geometry.faces.push(new THREE.Face3(triangles[i][0], triangles[i][2], triangles[i][3]));
             }
+            geometry.computeFaceNormals();
 
             let mesh = new THREE.Mesh(geometry, material);
             this.skullGroup.add(mesh);

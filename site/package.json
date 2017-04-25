@@ -12,7 +12,6 @@
   "devDependencies": {
     "vue": "latest",
     "vue-router": "latest",
-    "babylonjs": "latest",
     "three": "latest",
     "three-obj-loader": "latest",
     "css-loader": "latest",

@@ -32,6 +32,6 @@ app.ws('/ws', function(ws, req) {
 });
 
 
-let port = process.env.PORT || 8222;
+let port = process.env.PORT || 8224;
 app.listen(port);
 console.log('Server started on port ' + port);
