@@ -43,7 +43,7 @@ module.exports = {
                 use: ['raw-loader']
             },
             {
-                test: /\.(obj|mtl|eot|svg|ttf|woff|woff2)$/,
+                test: /\.(json|obj|mtl|eot|svg|ttf|woff|woff2)$/,
                 use: [{loader: 'file-loader', query: {name: '[name].[ext]'}}]
             }
         ]

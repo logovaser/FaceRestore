@@ -1,0 +1,78 @@
+<div class="side-menu">
+    <div class="side-menu-content">
+        <!--<div>-->
+            <!--<b>debug</b>-->
+            <!--<br>-->
+            <!--<button type="button" @click="emit('createMeshOnPoints')">Create Mesh on points</button>-->
+            <!--<button type="button" @click="emit('rayCastMatrix')">Raycast matrix (heavy)</button>-->
+            <!--<button type="button" @click="emit('rotateRayCast')">Rotate Raycast (heavy)</button>-->
+            <!--<button type="button" @click="emit('getSlices')">Get Slices</button>-->
+            <!--<button type="button" @click="emit('getBmpFromCanvas')">Get bmp from canvas</button>-->
+            <!--<button type="button" @click="emit('detectFaceParts')">Detect face parts</button>-->
+        <!--</div>-->
+        <!--<hr>-->
+        <div>
+            <b>Функціонал</b>
+            <br>
+            <!--<button type="button" @click="emit('createEyeClick')">Створити око</button>-->
+            <button type="button" @click="emit('')">Завантажити</button>
+            <button type="button" @click="emit('')">Автоматично визначити реперні точки</button>
+            <button type="button" @click="emit('')">Редагувати реперну точку</button>
+            <button type="button" @click="emit('skinWizardClick')">Вказати реперні точки вручну</button>
+            <button type="button" @click="emit('')">Створити модель обличчя</button>
+            <button type="button" @click="emit('')">Вивантажити в .json</button>
+            <button type="button" @click="emit('')">Вивантажити як зображення</button>
+
+            <label for="file-select">_</label>
+            <input type="file" id="file-select" style="display:none">
+        </div>
+        <hr>
+        <!--<div>-->
+            <!--<b>Mode switcher</b>-->
+            <!--<br>-->
+            <!--<button type="button" @click="emit('view')">View</button>-->
+            <!--<button type="button" @click="emit('editMesh')">Edit mesh</button>-->
+            <!--<button type="button" @click="emit('deleteMesh')">Delete mesh</button>-->
+        <!--</div>-->
+        <!--<hr>-->
+        <div>
+            <label>Ширина носа</label>
+            <input type="range" v-model="config.noseWidth" min="-0.2" max="0.2" step="0.01">
+        </div>
+        <hr>
+
+        <div>
+            <b>Обертати череп</b>
+            <br>
+            <table>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="button" @click="rotateMesh('up')">↑</button>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" @click="rotateMesh('left')">←</button>
+                    </td>
+                    <td>
+                        <button type="button" @click="rotateMesh('reset')">o</button>
+                    </td>
+                    <td>
+                        <button type="button" @click="rotateMesh('right')">→</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="button" @click="rotateMesh('down')">↓</button>
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <hr>
+        <!--<multi-toggle></multi-toggle>-->
+    </div>
+</div>

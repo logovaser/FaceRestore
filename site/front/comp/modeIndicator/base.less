@@ -1,0 +1,36 @@
+.mode-indicator {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+  background: none;
+  border: 2px dotted #e8e8e8;
+
+  .mode-indicator-bookmark {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    padding: 10px 20px;
+
+    background: #e8e8e8;
+  }
+
+  &.indicator-view {
+    border: 2px dotted #aaf;
+
+    .mode-indicator-bookmark {
+      background: #aaf;
+    }
+  }
+
+  &.indicator-point-select {
+    border: 2px dotted #f00;
+
+    .mode-indicator-bookmark {
+      background: #f00;
+    }
+  }
+}

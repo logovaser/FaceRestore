@@ -2,9 +2,9 @@
  * Created by logov on 07-Apr-17.
  */
 
-var CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v1';
 
-this.addEventListener('install', function (event) {
+self.addEventListener('install', function (event) {
     event.waitUntil(
         caches.open(CACHE_VERSION).then(function (cache) {
             return cache.addAll([
@@ -18,7 +18,7 @@ this.addEventListener('install', function (event) {
     );
 });
 
-this.addEventListener('activate', function (event) {
+self.addEventListener('activate', function (event) {
     event.waitUntil(
         caches.keys().then(function (cacheNames) {
             return Promise.all(
@@ -30,6 +30,18 @@ this.addEventListener('activate', function (event) {
             );
         })
     );
+});
+
+self.addEventListener('push', function(event) {
+    console.log('[Service Worker] Push Received.');
+    console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
+
+    const title = 'Push Codelab';
+    const options = {
+        body: event.data.text(),
+    };
+
+    event.waitUntil(self.registration.showNotification(title, options));
 });
 
 // this.addEventListener('fetch', function (event) {

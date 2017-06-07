@@ -10,10 +10,12 @@
     }
   ],
   "devDependencies": {
+    "delaunay-triangulate": "latest",
     "vue": "latest",
     "vue-router": "latest",
     "three": "latest",
     "three-obj-loader": "latest",
+    "three-orbit-controls": "latest",
     "css-loader": "latest",
     "less": "latest",
     "less-loader": "latest",
@@ -23,6 +25,7 @@
     "webpack": "latest"
   },
   "dependencies": {
+    "jimp": "^0.2.28",
     "three-objmtll-loader": "^1.0.1"
   }
 }

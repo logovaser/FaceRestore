@@ -1,0 +1,26 @@
+.multi-toggle {
+  position: relative;
+  overflow: hidden;
+  width: 90px;
+  height: 20px;
+  background: #fff;
+
+  .multi-toggle-point {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 30px;
+    height: 20px;
+    background: #f00;
+    transition: left 0.5s ease;
+  }
+
+  .multi-toggle-sections {
+    display: flex;
+    min-height: 100%;
+
+    & > * {
+      flex: 1;
+    }
+  }
+}
