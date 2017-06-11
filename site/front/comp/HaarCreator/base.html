@@ -1,0 +1,30 @@
+<div>
+    <h1>Haar creator || mode: {{mode}}</h1>
+    <hr>
+    <div>
+        <input type="file" @change="backImageChange($event)">
+        <input type="radio" name="haar-creator-mode" value="view" v-model="mode">View
+        <input type="radio" name="haar-creator-mode" value="addRect" v-model="mode">addRect
+        <button @click="clearCanvas()">Clear</button>
+        <button @click="exportFeatures()">Export</button>
+    </div>
+    <div>
+        <label>Canvas width:</label>
+        <input v-model="canvasStyle.width">
+        <label>Canvas height:</label>
+        <input v-model="canvasStyle.height">
+    </div>
+    <div>
+        <input type="radio" name="haar-creator-feature-type" value="bw" v-model="featureType">BW
+        <input type="radio" name="haar-creator-feature-type" value="wb" v-model="featureType">WB
+        <input type="radio" name="haar-creator-feature-type" value="vbw" v-model="featureType">vBW
+        <input type="radio" name="haar-creator-feature-type" value="vwb" v-model="featureType">vWB
+    </div>
+    <hr>
+    <div class="haar-creator-canvas"
+         @mousedown="canvasMouseDown($event)" @mouseup="canvasMouseUp($event)" @mousemove="canvasMouseMove($event)"
+         :style='canvasStyle'>
+        <div class="haar-creator-feature" v-for="feature in features"
+             :class="feature.className" :style="feature.style"></div>
+    </div>
+</div>

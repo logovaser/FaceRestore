@@ -1,10 +1,14 @@
 import './base.less'
 
 import Vue from 'vue/dist/vue.esm'
-import ThreeCanvas from './comp/ThreeCanvas/base'
+import VueRouter from 'vue-router'
+
+Vue.use(VueRouter);
+
+import router from './router'
 
 const app = new Vue({
-    components: {ThreeCanvas}
+    router,
 }).$mount('#app');
 
 // import initSW from './sw/initServiceWorker'

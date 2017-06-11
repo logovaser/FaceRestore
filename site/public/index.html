@@ -25,7 +25,11 @@
 </head>
 <body>
 <div id="app">
-    <three-canvas></three-canvas>
+    <div>
+        <router-link to="/">Main</router-link>
+        <router-link to="/haar_creator">Haar Creator</router-link>
+    </div>
+    <router-view></router-view>
 </div>
 </body>
 <script src="/static/index.js"></script>

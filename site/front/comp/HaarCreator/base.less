@@ -1,0 +1,32 @@
+.haar-creator-canvas {
+  position: relative;
+  width: 480px;
+  height: 640px;
+  user-select: none;
+
+  background: center no-repeat #e8e8e8;
+  background-size: contain;
+}
+
+.haar-creator-feature {
+  position: absolute;
+  pointer-events: none;
+
+  background: #f88;
+  opacity: .5;
+}
+
+.haar-creator-feature- {
+  &bw {
+    background: -webkit-linear-gradient(left, #000 50%,#fff 50%);
+  }
+  &wb {
+    background: -webkit-linear-gradient(left, #fff 50%,#000 50%);
+  }
+  &vbw {
+    background: -webkit-linear-gradient(top, #000 50%,#fff 50%);
+  }
+  &vwb {
+    background: -webkit-linear-gradient(top, #fff 50%,#000 50%);
+  }
+}
