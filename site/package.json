@@ -10,18 +10,19 @@
     }
   ],
   "devDependencies": {
+    "css-loader": "latest",
     "delaunay-triangulate": "latest",
-    "vue": "latest",
-    "vue-router": "latest",
+    "file-loader": "latest",
+    "json-loader": "latest",
+    "less": "latest",
+    "less-loader": "latest",
+    "raw-loader": "latest",
+    "style-loader": "latest",
     "three": "latest",
     "three-obj-loader": "latest",
     "three-orbit-controls": "latest",
-    "css-loader": "latest",
-    "less": "latest",
-    "less-loader": "latest",
-    "style-loader": "latest",
-    "file-loader": "latest",
-    "raw-loader": "latest",
+    "vue": "latest",
+    "vue-router": "latest",
     "webpack": "latest"
   },
   "dependencies": {

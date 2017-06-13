@@ -5,7 +5,8 @@
         <input type="file" @change="backImageChange($event)">
         <input type="radio" name="haar-creator-mode" value="view" v-model="mode">View
         <input type="radio" name="haar-creator-mode" value="addRect" v-model="mode">addRect
-        <button @click="clearCanvas()">Clear</button>
+        <button @click="undoFeature()">Undo</button>
+        <button @click="clearFeatures()">Clear</button>
         <button @click="exportFeatures()">Export</button>
     </div>
     <div>

@@ -2,10 +2,11 @@
  * Created by logov on 24-May-17.
  */
 
+import HaarFeatures from '../Haar_features.json_p'
+
 function convertToMono(img) {
     let monoData = [];
     for (let i = 0; i < img.data.length; i += 4) {
-
         monoData.push();
     }
     return {
@@ -15,90 +16,63 @@ function convertToMono(img) {
     }
 }
 
-function getPixel(img, x, y) {
-    return img.data[img.width * y + x]
-}
-
-function initImages(renderer) {
+function screenShotRenderer() {
     let gl = renderer.context;
     let pixels = new Uint8Array(gl.drawingBufferWidth * gl.drawingBufferHeight * 4);
     gl.readPixels(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
 
-    screen = convertToMono({
+    return {
         data: pixels,
         width: gl.drawingBufferWidth,
         height: gl.drawingBufferHeight
-    });
-
-    function readImage(name) {
-        return Jimp.read(`/res/${name}.bmp`).then(img => {
-            img = img.greyscale();
-            masks[name] = convertToMono({
-                data: img.bitmap.data,
-                width: img.bitmap.width,
-                height: img.bitmap.height
-            });
-        })
-    }
-
-    return Promise.all([
-        readImage('chin'),
-        readImage('eye'),
-        readImage('nose'),
-    ]);
+    };
 }
 
-function averagePoint(img, targetX, targetY, sizeMultiplier) {
-    let sum = 0;
-    for (let y = targetY; y < targetY + sizeMultiplier; y++) {
-        for (let x = targetX; x < targetX + sizeMultiplier; x++) {
-            sum += getPixel(img, x, y)
-        }
-    }
-    return sum / Math.pow(sizeMultiplier, 2);
+function getPixel(img, x, y) {
+    return img.data[img.width * y + x]
 }
 
-function compareMaskWithScreen(img, mask, targetX, targetY) {
-    let sum = 0,
-        count = 0;
-    for (let y = 0; y < mask.height; y++) {
-        for (let x = 0; x < mask.width; x++) {
-            let imgPoint = averagePoint(img, targetX, targetY, mask.sizeMultiplier);
-            let maskPoint = getPixel(mask, x, y);
-            count++;
-            sum += 65025 - Math.pow(Math.abs(imgPoint - maskPoint), 2);
-        }
-    }
-    return sum / count * 100 / 65025;
+function compareFeatureWithScreen() {
+
 }
 
-function findAllMatches(self, screen, masks) {
+function findAllMatches() {
+    const config = {
+        size: {
+            min: 0.7,
+            max: 1.3,
+            step: .1,
+        },
+        position: {
+            offset: 0.1,
+            step: 0.05,
+        },
+    };
+
     function* compareGenerator() {
-        for (let key in masks) {
-            if (masks.hasOwnProperty(key)) {
-                let mask = masks[key];
-                for (let sizeMultiplier = 6; sizeMultiplier < 12; sizeMultiplier++) {
-                    let sizedMask = {
-                        name: key,
-                        data: mask.data,
-                        width: mask.width,
-                        height: mask.height,
-                        sizeMultiplier
-                    };
-                    self.mask.width = mask.width * sizeMultiplier;
-                    self.mask.height = mask.height * sizeMultiplier;
+        for (let feature of HaarFeatures) {
+            // for (let size = config.size.min; size <= config.size.max; size += config.size.step) {
+            //     frame.width = feature.width * size;
+            //     frame.height = feature.height * size;
 
-                    for (let y = 0; y < screen.height - sizedMask.height * sizeMultiplier; y += 20) {
-                        for (let x = 0; x < screen.width - sizedMask.width * sizeMultiplier; x += 20) {
-                            let similarity = compareMaskWithScreen(screen, sizedMask, x, y);
-                            self.mask.x = x;
-                            self.mask.y = y;
-                            if (similarity > 60) console.log(`mask ${sizedMask.name} similiarity ${similarity}%`);
-                            yield;
-                        }
-                    }
-                }
-            }
+
+            let similarity = compareFeatureWithScreen(screen, feature);
+            frame.x = feature.x;
+            frame.y = feature.y;
+            console.log(`feature ${sizedFeature.name} similiarity ${similarity}%`);
+            yield;
+
+
+            // for (let y = 0; y < screen.height - sizedFeature.height * size; y += 20) {
+            //     for (let x = 0; x < screen.width - sizedFeature.width * size; x += 20) {
+            //         let similarity = compareMaskWithScreen(screen, sizedFeature, x, y);
+            //         frame.x = x;
+            //         frame.y = y;
+            //         if (similarity > 60) console.log(`feature ${sizedFeature.name} similiarity ${similarity}%`);
+            //         yield;
+            //     }
+            // }
+            // }
         }
     }
 
@@ -111,11 +85,18 @@ function findAllMatches(self, screen, masks) {
     })()
 }
 
-let screen = {};
-let masks = {};
+function init() {
+    screen = convertToMono(screenShotRenderer());
+}
+
+let screen,
+    frame,
+    renderer;
 
 export function detectFaceParts() {
-    initImages(this.renderer).then(() => {
-        findAllMatches(this, screen, masks);
-    })
+    renderer = this.renderer;
+    frame = this.mask;
+    init();
+
+    findAllMatches();
 }

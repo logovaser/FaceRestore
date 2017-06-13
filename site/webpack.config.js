@@ -45,6 +45,10 @@ module.exports = {
             {
                 test: /\.(json|obj|mtl|eot|svg|ttf|woff|woff2)$/,
                 use: [{loader: 'file-loader', query: {name: '[name].[ext]'}}]
+            },
+            {
+                test: /\.json_p$/,
+                use: ['json-loader']
             }
         ]
     }

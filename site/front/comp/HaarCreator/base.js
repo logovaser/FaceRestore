@@ -74,6 +74,10 @@ export default {
                 reader.readAsDataURL(files[0]);
             }
         },
+        undoFeature: function () {
+            this.features.pop();
+            this.featuresJsonToExport.pop();
+        },
         clearFeatures: function () {
             this.features = [];
             this.featuresJsonToExport = [];

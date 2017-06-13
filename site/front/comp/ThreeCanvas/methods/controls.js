@@ -2,8 +2,6 @@
  * Created by logov on 22-May-17.
  */
 
-import '../../../lib/jimp.min'
-
 const skinWizard = {
     steps: [
         {text: 'forehead', bone: 'forehead'},
