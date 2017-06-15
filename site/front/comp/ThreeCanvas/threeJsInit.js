@@ -11,14 +11,14 @@ export function initScene() {
         let scene = new THREE.Scene();
 
         let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.z = 8;
+        camera.position.z = 6.5;
 
         let light = new THREE.PointLight(0xffffff, 1.5, 200);
         light.position.set(0, 50, 50);
         scene.add(light);
 
         let light2 = new THREE.PointLight(0xffffff, 1, 200);
-        light2.position.set(-50, -50, 50);
+        light2.position.set(0, -50, 50);
         scene.add(light2);
 
         let skullGroup;
